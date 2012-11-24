@@ -18,8 +18,6 @@ class Axle
       path:     @path( path )
       headers:  headers
 
-    console.log options
-
     req = http.request options, ( res ) ->
       res.setEncoding( "utf8" )
 
