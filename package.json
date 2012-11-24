@@ -2,7 +2,7 @@
   "name": "coffee-axle",
   "version": "0.0.0",
   "description": "A client library for API Axle",
-  "main": "index.js",
+  "main": "axle",
   "directories": {
     "test": "test"
   },
@@ -16,7 +16,7 @@
   ],
   "dependencies": {
     "underscore": "1.4.2"
-  }
+  },
   "devDependencies": {
     "twerp":  "=1.0.7",
     "sinon":  "1.5.0"
