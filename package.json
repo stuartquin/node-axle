@@ -1,0 +1,26 @@
+{
+  "name": "coffee-axle",
+  "version": "0.0.0",
+  "description": "A client library for API Axle",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "cake test"
+  },
+  "repository": "",
+  "keywords": [
+    "APIAxle",
+    "axle"
+  ],
+  "dependencies": {
+    "underscore": "1.4.2"
+  }
+  "devDependencies": {
+    "twerp":  "=1.0.7",
+    "sinon":  "1.5.0"
+  },
+  "author": "Stuart Quin",
+  "license": "BSD"
+}
