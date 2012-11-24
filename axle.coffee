@@ -56,3 +56,14 @@ class exports.V1 extends Axle
 
     endpoint = "/api/#{api}/keys/#{params.start}/#{params.limit}"
     @getter endpoint, cb
+
+  getApis: ( options, cb ) ->
+    defaults =
+      start:   0
+      limit:   10
+      resolve: false
+
+    params = _.extend defaults, options
+
+    endpoint = "/api/list/#{params.start}/#{params.limit}?resolve=#{params.resolve}"
+    @getter endpoint, cb

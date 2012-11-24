@@ -20,8 +20,6 @@ class exports.AxleTest extends TwerpTest
     done 1
 
   testGetKeysByApi: ( done ) ->
-    @ok 1
-
     # Stub out the getter
     stub = sinon.stub @axle, "getter", ( path, cb ) =>
       data =
@@ -32,4 +30,17 @@ class exports.AxleTest extends TwerpTest
     @axle.getKeysByApi "facebook", {}, ( err, res ) =>
       @isArray res.results
       @equal res.results[0], "key1"
-      done 3
+      done 2
+
+  testGetApis: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: ["api1", "api2"]
+      cb null, data
+
+    @axle.getKeysByApi "facebook", {}, ( err, res ) =>
+      @isArray res.results
+      @equal res.results[0], "api1"
+      done 2
