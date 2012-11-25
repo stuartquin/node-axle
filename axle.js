@@ -12,42 +12,62 @@
 
     function Axle() {}
 
-    Axle.prototype.getter = function(path, callback) {
-      var headers, options, req;
+    Axle.prototype.getOptions = function(path) {
+      var headers, options;
       if (this.domain == null) {
         throw new Error("No domain set.");
       }
       headers = {
         "Host": this.domain,
         "User-Agent": "axle-node HTTP client",
-        "Content-Length": "0"
+        "Content-type": "application/json"
       };
-      options = {
+      return options = {
         hostname: this.domain,
         port: this.port,
         path: this.path(path),
         headers: headers
       };
-      req = http.request(options, function(res) {
-        var body;
-        res.setEncoding("utf8");
-        body = [];
-        res.on("data", function(chunk) {
-          return body.push(chunk);
-        });
-        return res.on("end", function() {
-          var body_str, error_details;
-          body_str = body.join("");
-          if (res.statusCode === !200) {
-            error_details = {
-              status: res.statusCode,
-              body: body_str
-            };
-            callback(error_details, null);
-          }
-          return callback(null, JSON.parse(body_str));
-        });
+    };
+
+    Axle.prototype.parseResponse = function(res, cb) {
+      var body;
+      res.setEncoding("utf8");
+      body = [];
+      res.on("data", function(chunk) {
+        return body.push(chunk);
       });
+      return res.on("end", function() {
+        var body_str, error_details;
+        body_str = body.join("");
+        if (res.statusCode === !200) {
+          error_details = {
+            status: res.statusCode,
+            body: body_str
+          };
+          cb(error_details, null);
+        }
+        return cb(null, JSON.parse(body_str));
+      });
+    };
+
+    Axle.prototype.poster = function(path, params, cb) {
+      var options, req,
+        _this = this;
+      options = this.getOptions(path);
+      options.method = "POST";
+      req = http.request(options, function(res) {
+        return _this.parseResponse(res, cb);
+      });
+      req.write(JSON.stringify(params));
+      return req.end();
+    };
+
+    Axle.prototype.getter = function(path, cb) {
+      var req;
+      req = http.request(this.getOptions(path, function(res) {
+        return this.parseResponse(res, cb);
+      }));
       return req.end();
     };
 
@@ -90,6 +110,16 @@
       params = _.extend(defaults, options);
       endpoint = "/api/list/" + params.start + "/" + params.limit + "?resolve=" + params.resolve;
       return this.getter(endpoint, cb);
+    };
+
+    V1.prototype.createApi = function(api, endpoint, options, cb) {
+      var api_endpoint, defaults, params;
+      defaults = {
+        endPoint: endpoint
+      };
+      params = _.extend(defaults, options);
+      api_endpoint = "/api/" + api;
+      return this.poster(api_endpoint, params, cb);
     };
 
     return V1;

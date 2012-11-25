@@ -3,14 +3,15 @@ http = require "http"
 _    = require "underscore"
 
 class Axle
-  getter: ( path, callback ) ->
+
+  getOptions: ( path ) ->
     unless @domain?
       throw new Error "No domain set."
 
     headers =
       "Host":           @domain,
       "User-Agent":     "axle-node HTTP client",
-      "Content-Length": "0"
+      "Content-type":   "application/json"
 
     options =
       hostname: @domain
@@ -18,23 +19,37 @@ class Axle
       path:     @path( path )
       headers:  headers
 
-    req = http.request options, ( res ) ->
-      res.setEncoding( "utf8" )
+  parseResponse: ( res, cb ) ->
+    res.setEncoding( "utf8" )
 
-      body = [ ]
-      res.on "data", ( chunk ) -> body.push( chunk )
+    body = [ ]
+    res.on "data", ( chunk ) -> body.push( chunk )
 
-      res.on "end", () ->
-        body_str = body.join ""
+    res.on "end", () ->
+      body_str = body.join ""
 
-        if res.statusCode is not 200
-          error_details =
-            status: res.statusCode,
-            body:   body_str
+      if res.statusCode is not 200
+        error_details =
+          status: res.statusCode,
+          body:   body_str
 
-          callback error_details, null
+        cb error_details, null
 
-        callback null, JSON.parse body_str
+      cb null, JSON.parse body_str
+
+  poster: ( path, params, cb ) ->
+    options = @getOptions path
+    options.method = "POST"
+
+    req = http.request options, ( res ) =>
+      @parseResponse res, cb
+
+    req.write JSON.stringify params
+    req.end()
+
+  getter: ( path, cb ) ->
+    req = http.request @getOptions path, ( res ) ->
+      @parseResponse res, cb
 
     req.end()
 
@@ -65,3 +80,11 @@ class exports.V1 extends Axle
 
     endpoint = "/api/list/#{params.start}/#{params.limit}?resolve=#{params.resolve}"
     @getter endpoint, cb
+
+  createApi: ( api, endpoint, options, cb ) ->
+    defaults =
+      endPoint: endpoint
+
+    params       = _.extend defaults, options
+    api_endpoint = "/api/#{api}"
+    @poster api_endpoint, params, cb

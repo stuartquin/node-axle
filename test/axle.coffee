@@ -44,3 +44,23 @@ class exports.AxleTest extends TwerpTest
       @isArray res.results
       @equal res.results[0], "api1"
       done 2
+
+  testCreateApi: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "poster", ( path, params, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results:
+          endPoint: "test.com"
+          globalCache: 0
+          apiFormat: "json"
+          endPointTimeout: 2
+          endPointMaxRedirects: 2
+          createdAt: 1353840301840
+
+      cb null, data
+
+    @axle.createApi "Stu_test", "test.com", {}, ( err, res ) =>
+      @isObject res.results
+      @equal res.results.endPoint, "test.com"
+      done 2
