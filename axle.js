@@ -64,10 +64,12 @@
     };
 
     Axle.prototype.getter = function(path, cb) {
-      var req;
-      req = http.request(this.getOptions(path, function(res) {
-        return this.parseResponse(res, cb);
-      }));
+      var options, req,
+        _this = this;
+      options = this.getOptions(path);
+      req = http.request(options, function(res) {
+        return _this.parseResponse(res, cb);
+      });
       return req.end();
     };
 

@@ -48,7 +48,9 @@ class Axle
     req.end()
 
   getter: ( path, cb ) ->
-    req = http.request @getOptions path, ( res ) ->
+    options = @getOptions path
+
+    req = http.request options, ( res ) =>
       @parseResponse res, cb
 
     req.end()
