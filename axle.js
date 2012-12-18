@@ -105,12 +105,12 @@
     V1.prototype.getApis = function(options, cb) {
       var defaults, endpoint, params;
       defaults = {
-        start: 0,
-        limit: 10,
+        from: 0,
+        to: 10,
         resolve: false
       };
       params = _.extend(defaults, options);
-      endpoint = "/api/list/" + params.start + "/" + params.limit + "?resolve=" + params.resolve;
+      endpoint = "/apis?from=" + params.from + "&to=" + params.to + "&resolve=" + params.resolve;
       return this.getter(endpoint, cb);
     };
 
