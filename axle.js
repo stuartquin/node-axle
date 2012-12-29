@@ -94,11 +94,11 @@
     V1.prototype.getKeysByApi = function(api, options, cb) {
       var defaults, endpoint, params;
       defaults = {
-        start: 0,
-        limit: 10
+        from: 0,
+        to: 10
       };
       params = _.extend(defaults, options);
-      endpoint = "/api/" + api + "/keys/" + params.start + "/" + params.limit;
+      endpoint = "/api/" + api + "/keys/" + params.from + "/" + params.to;
       return this.getter(endpoint, cb);
     };
 

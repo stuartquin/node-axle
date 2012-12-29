@@ -64,12 +64,12 @@ class exports.V1 extends Axle
 
   getKeysByApi: ( api, options, cb ) ->
     defaults =
-      start: 0
-      limit: 10
+      from: 0
+      to:   10
 
     params = _.extend defaults, options
 
-    endpoint = "/api/#{api}/keys/#{params.start}/#{params.limit}"
+    endpoint = "/api/#{api}/keys/#{params.from}/#{params.to}"
     @getter endpoint, cb
 
   getApis: ( options, cb ) ->

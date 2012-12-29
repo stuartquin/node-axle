@@ -40,7 +40,7 @@ class exports.AxleTest extends TwerpTest
         results: ["api1", "api2"]
       cb null, data
 
-    @axle.getKeysByApi "facebook", {}, ( err, res ) =>
+    @axle.getApis {}, ( err, res ) =>
       @isArray res.results
       @equal res.results[0], "api1"
       done 2
