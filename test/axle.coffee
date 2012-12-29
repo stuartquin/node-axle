@@ -5,7 +5,7 @@ sinon = require "sinon"
 
 class exports.AxleTest extends TwerpTest
   setup: ( done ) ->
-    @axle = new V1 "localhost"
+    @axle = new V1 "localhost", 3001
     done 1
 
   # Return meta data
@@ -43,6 +43,31 @@ class exports.AxleTest extends TwerpTest
     @axle.getApis {}, ( err, res ) =>
       @isArray res.results
       @equal res.results[0], "api1"
+      done 2
+
+  testGetKeyStats: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: {}
+      cb null, data
+
+    @axle.getKeyStats "1234", ( err, res ) =>
+      @isObject res.results
+      done 1
+
+  testGetKeyStatsError: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      error =
+        status: 404,
+        body:   {}
+      cb error, null
+
+    @axle.getKeyStats "54321", ( err, res ) =>
+      @isObject err
+      @isNotNull err
       done 2
 
   testCreateKey: ( done ) ->

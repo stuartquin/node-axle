@@ -117,6 +117,12 @@
       return this.getter(endpoint, cb);
     };
 
+    V1.prototype.getKeyStats = function(key, cb) {
+      var endpoint;
+      endpoint = "/key/" + key + "/stats";
+      return this.getter(endpoint, cb);
+    };
+
     V1.prototype.createApi = function(api, endpoint, options, cb) {
       var api_endpoint, defaults, params;
       defaults = {

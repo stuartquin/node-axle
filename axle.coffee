@@ -50,7 +50,6 @@ class Axle
 
   getter: ( path, cb ) ->
     options = @getOptions path
-
     req = http.request options, ( res ) =>
       @parseResponse res, cb
 
@@ -84,6 +83,10 @@ class exports.V1 extends Axle
 
     endpoint  = "/apis?from=#{params.from}&to=#{params.to}"
     endpoint += "&resolve=#{params.resolve}"
+    @getter endpoint, cb
+
+  getKeyStats: ( key, cb ) ->
+    endpoint  = "/key/#{key}/stats"
     @getter endpoint, cb
 
   createApi: ( api, endpoint, options, cb ) ->
