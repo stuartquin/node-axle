@@ -98,7 +98,8 @@
         to: 10
       };
       params = _.extend(defaults, options);
-      endpoint = "/api/" + api + "/keys?from=" + params.from + "&to=" + params.to + "&resolve=" + params.resolve;
+      endpoint = "/api/" + api + "/keys?from=" + params.from + "&to=" + params.to;
+      endpoint += "&resolve=" + params.resolve;
       return this.getter(endpoint, cb);
     };
 
@@ -110,7 +111,8 @@
         resolve: false
       };
       params = _.extend(defaults, options);
-      endpoint = "/apis?from=" + params.from + "&to=" + params.to + "&resolve=" + params.resolve;
+      endpoint = "/apis?from=" + params.from + "&to=" + params.to;
+      endpoint += "&resolve=" + params.resolve;
       return this.getter(endpoint, cb);
     };
 
