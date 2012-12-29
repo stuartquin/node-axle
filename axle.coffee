@@ -28,12 +28,13 @@ class Axle
     res.on "end", () ->
       body_str = body.join ""
 
-      if res.statusCode is not 200
+      if res.statusCode != 200
         error_details =
           status: res.statusCode,
           body:   body_str
 
         cb error_details, null
+        return
 
       cb null, JSON.parse body_str
 

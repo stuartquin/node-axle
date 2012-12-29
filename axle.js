@@ -40,12 +40,13 @@
       return res.on("end", function() {
         var body_str, error_details;
         body_str = body.join("");
-        if (res.statusCode === !200) {
+        if (res.statusCode !== 200) {
           error_details = {
             status: res.statusCode,
             body: body_str
           };
           cb(error_details, null);
+          return;
         }
         return cb(null, JSON.parse(body_str));
       });
