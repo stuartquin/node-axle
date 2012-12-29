@@ -45,6 +45,23 @@ class exports.AxleTest extends TwerpTest
       @equal res.results[0], "api1"
       done 2
 
+  testCreateKey: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "poster", ( path, params, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results:
+          forApi:    "testapi",
+          qpd:       172800,
+          qps:       2,
+          createdAt: 1356799384205
+
+      cb null, data
+
+    @axle.createKey "123456", "testapi", {}, ( err, res ) =>
+      @isObject res.results
+      done 1
+
   testCreateApi: ( done ) ->
     # Stub out the getter
     stub = sinon.stub @axle, "poster", ( path, params, cb ) =>

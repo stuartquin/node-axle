@@ -124,6 +124,16 @@
       return this.poster(api_endpoint, params, cb);
     };
 
+    V1.prototype.createKey = function(key, api, options, cb) {
+      var api_endpoint, defaults, params;
+      defaults = {
+        forApi: api
+      };
+      params = _.extend(defaults, options);
+      api_endpoint = "/key/" + key;
+      return this.poster(api_endpoint, params, cb);
+    };
+
     return V1;
 
   })(Axle);

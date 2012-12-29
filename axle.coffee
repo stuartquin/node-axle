@@ -90,3 +90,12 @@ class exports.V1 extends Axle
     params       = _.extend defaults, options
     api_endpoint = "/api/#{api}"
     @poster api_endpoint, params, cb
+
+  createKey: ( key, api, options, cb ) ->
+    defaults =
+      forApi: api
+
+    # Combine with options
+    params       = _.extend defaults, options
+    api_endpoint = "/key/#{key}"
+    @poster api_endpoint, params, cb
