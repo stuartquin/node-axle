@@ -69,7 +69,7 @@ class exports.V1 extends Axle
 
     params = _.extend defaults, options
 
-    endpoint = "/api/#{api}/keys/#{params.from}/#{params.to}"
+    endpoint = "/api/#{api}/keys?from=#{params.from}&to=#{params.to}&resolve=#{params.resolve}"
     @getter endpoint, cb
 
   getApis: ( options, cb ) ->

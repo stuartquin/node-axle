@@ -98,7 +98,7 @@
         to: 10
       };
       params = _.extend(defaults, options);
-      endpoint = "/api/" + api + "/keys/" + params.from + "/" + params.to;
+      endpoint = "/api/" + api + "/keys?from=" + params.from + "&to=" + params.to + "&resolve=" + params.resolve;
       return this.getter(endpoint, cb);
     };
 
