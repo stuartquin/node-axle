@@ -123,6 +123,12 @@
       return this.getter(endpoint, cb);
     };
 
+    V1.prototype.getApiStats = function(api, cb) {
+      var endpoint;
+      endpoint = "/v1/api/" + api + "/stats";
+      return this.getter(endpoint, cb);
+    };
+
     V1.prototype.createApi = function(api, endpoint, options, cb) {
       var api_endpoint, defaults, params;
       defaults = {

@@ -41,6 +41,19 @@ class exports.AxleTest extends TwerpTest
       @equal res.results[0], "api1"
       done 2
 
+  testGetApiStats: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: {}
+      cb null, data
+
+    @axle.getApiStats "testapi", ( err, res ) =>
+      @isNull    err
+      @isNotNull res.results
+      done 2
+
   testGetKeyStats: ( done ) ->
     # Stub out the getter
     stub = sinon.stub @axle, "getter", ( path, cb ) =>
@@ -50,8 +63,9 @@ class exports.AxleTest extends TwerpTest
       cb null, data
 
     @axle.getKeyStats "1234", ( err, res ) =>
-      @isObject res.results
-      done 1
+      @isNull    err
+      @isNotNull res.results
+      done 2
 
   testGetKeyStatsError: ( done ) ->
     # Stub out the getter
