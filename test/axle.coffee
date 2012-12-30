@@ -15,10 +15,6 @@ class exports.AxleTest extends TwerpTest
       status_code: status_code
     return meta
 
-  testSomethingSimple: ( done ) ->
-    @ok 1
-    done 1
-
   testGetKeysByApi: ( done ) ->
     # Stub out the getter
     stub = sinon.stub @axle, "getter", ( path, cb ) =>
