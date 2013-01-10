@@ -90,7 +90,7 @@ class exports.V1 extends Axle
     @getter endpoint, cb
 
   getApiStats: ( api, cb ) ->
-    endpoint  = "/v1/api/#{api}/stats"
+    endpoint  = "/api/#{api}/stats"
     @getter endpoint, cb
 
   createApi: ( api, endpoint, options, cb ) ->

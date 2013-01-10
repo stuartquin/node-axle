@@ -125,7 +125,7 @@
 
     V1.prototype.getApiStats = function(api, cb) {
       var endpoint;
-      endpoint = "/v1/api/" + api + "/stats";
+      endpoint = "/api/" + api + "/stats";
       return this.getter(endpoint, cb);
     };
 
