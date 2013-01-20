@@ -129,6 +129,12 @@
       return this.getter(endpoint, cb);
     };
 
+    V1.prototype.getRealTimeKeyHits = function(key, cb) {
+      var endpoint;
+      endpoint = "/key/" + key + "/hits/now";
+      return this.getter(endpoint, cb);
+    };
+
     V1.prototype.getApiStats = function(api, cb) {
       var endpoint;
       endpoint = "/api/" + api + "/stats";
@@ -138,6 +144,12 @@
     V1.prototype.getApiHits = function(api, cb) {
       var endpoint;
       endpoint = "/api/" + api + "/hits";
+      return this.getter(endpoint, cb);
+    };
+
+    V1.prototype.getRealTimeApiHits = function(api, cb) {
+      var endpoint;
+      endpoint = "/api/" + api + "/hits/now";
       return this.getter(endpoint, cb);
     };
 

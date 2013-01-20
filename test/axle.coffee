@@ -67,6 +67,19 @@ class exports.AxleTest extends TwerpTest
       @isNotNull res.results
       done 2
 
+  testGetRealTimeKeyHits: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: {}
+      cb null, data
+
+    @axle.getRealTimeKeyHits "1234", ( err, res ) =>
+      @isNull    err
+      @isNotNull res.results
+      done 2
+
   testGetKeyStats: ( done ) ->
     # Stub out the getter
     stub = sinon.stub @axle, "getter", ( path, cb ) =>
