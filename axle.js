@@ -123,9 +123,21 @@
       return this.getter(endpoint, cb);
     };
 
+    V1.prototype.getKeyHits = function(key, cb) {
+      var endpoint;
+      endpoint = "/key/" + key + "/hits";
+      return this.getter(endpoint, cb);
+    };
+
     V1.prototype.getApiStats = function(api, cb) {
       var endpoint;
       endpoint = "/api/" + api + "/stats";
+      return this.getter(endpoint, cb);
+    };
+
+    V1.prototype.getApiHits = function(api, cb) {
+      var endpoint;
+      endpoint = "/api/" + api + "/hits";
       return this.getter(endpoint, cb);
     };
 

@@ -89,8 +89,16 @@ class exports.V1 extends Axle
     endpoint  = "/key/#{key}/stats"
     @getter endpoint, cb
 
+  getKeyHits: ( key, cb ) ->
+    endpoint  = "/key/#{key}/hits"
+    @getter endpoint, cb
+
   getApiStats: ( api, cb ) ->
     endpoint  = "/api/#{api}/stats"
+    @getter endpoint, cb
+
+  getApiHits: ( api, cb ) ->
+    endpoint  = "/api/#{api}/hits"
     @getter endpoint, cb
 
   createApi: ( api, endpoint, options, cb ) ->
