@@ -80,6 +80,32 @@ class exports.AxleTest extends TwerpTest
       @isNotNull res.results
       done 2
 
+  testGetApiHits: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: {}
+      cb null, data
+
+    @axle.getApiHits "facebook", ( err, res ) =>
+      @isNull    err
+      @isNotNull res.results
+      done 2
+
+  testGetRealTimeApiHits: ( done ) ->
+    # Stub out the getter
+    stub = sinon.stub @axle, "getter", ( path, cb ) =>
+      data =
+        meta:    @getMetaData 200
+        results: {}
+      cb null, data
+
+    @axle.getRealTimeApiHits "facebook", ( err, res ) =>
+      @isNull    err
+      @isNotNull res.results
+      done 2
+
   testGetKeyStats: ( done ) ->
     # Stub out the getter
     stub = sinon.stub @axle, "getter", ( path, cb ) =>
