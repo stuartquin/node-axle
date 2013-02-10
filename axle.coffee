@@ -9,8 +9,7 @@ class Axle
       throw new Error "No domain set."
 
     headers =
-      "Host":           @domain,
-      "User-Agent":     "axle-node HTTP client",
+      "Host":           @domain, "User-Agent":     "axle-node HTTP client",
       "Content-type":   "application/json"
 
     options =
@@ -83,6 +82,10 @@ class exports.V1 extends Axle
 
     endpoint  = "/apis?from=#{params.from}&to=#{params.to}"
     endpoint += "&resolve=#{params.resolve}"
+    @getter endpoint, cb
+
+  getKey: ( key, cb ) ->
+    endpoint  = "/key/#{key}"
     @getter endpoint, cb
 
   getKeyStats: ( key, cb ) ->

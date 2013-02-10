@@ -117,6 +117,12 @@
       return this.getter(endpoint, cb);
     };
 
+    V1.prototype.getKey = function(key, cb) {
+      var endpoint;
+      endpoint = "/key/" + key;
+      return this.getter(endpoint, cb);
+    };
+
     V1.prototype.getKeyStats = function(key, cb) {
       var endpoint;
       endpoint = "/key/" + key + "/stats";
