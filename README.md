@@ -18,10 +18,10 @@ instantiated based on the desired version (V1 at the moment):
 Get all API's managed by ApiAxle
 
 ```
-    axle = new NodeAxle("localhost", 3001)
+axle = new NodeAxle("localhost", 3001)
 
-    axle.getApis {}, ( err, results ) ->
-      for i of results.results
-        api = results.results[i]
-        console.log api["name"]
+axle.getApis {}, ( err, results ) ->
+  for i of results.results
+    api = results.results[i]
+    console.log api["name"]
 ```
