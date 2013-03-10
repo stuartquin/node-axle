@@ -120,9 +120,16 @@ class exports.V1 extends Axle
     api_endpoint = "/api/#{api}"
     @poster api_endpoint, params, cb
 
-  createKey: ( key, api, options, cb ) ->
+  createKey: ( key, apis, options, cb ) ->
+    # List of options that should be removed if empty string
+    for opt in ["qpd", "qps", "sharedSecret"]
+      if options[opt] == ""
+        delete options[opt]
+
     defaults =
-      forApi: api
+      forApis: apis
+      qps:     2
+      qpd:     86400*2
 
     # Combine with options
     params       = _.extend defaults, options
